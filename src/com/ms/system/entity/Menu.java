@@ -25,7 +25,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name="system_menu")
 public class Menu implements Serializable{
 	/**
-	 * 
+	 * ddddd
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
