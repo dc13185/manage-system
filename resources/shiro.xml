@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context" 
+    xmlns:aop="http://www.springframework.org/schema/aop"  
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+<!-- ================ Shiro start ================ -->
+		<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		 <property name="realm" ref="ShiroRealm" />
+		<!--  <property name="sessionManager" ref="sessionManager" /> -->
+		<!--  <property name="cacheManager" ref="cacheManager"></property> -->
+		</bean>
+		
+		<!-- 項目自定义的Realm -->
+	    <bean id="ShiroRealm" class="com.ms.system.shiro.ShiroRelm" ></bean>
+				
+	<!-- 	<bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.MemorySessionDAO"></bean>
+		 -->
+	   <!--  <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+	        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/> 
+	    </bean>  -->
+		
+	<!-- 	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">  
+    		<constructor-arg name="name" value="SHRIOSESSIONID"/>  
+		</bean>  -->
+		
+		<!-- 配置shiro session 的一个管理器 -->
+<!-- 		<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+			   <property name="globalSessionTimeout" value="1800000"/>  
+			   <property name="deleteInvalidSessions" value="true"/>  
+			   <property name="sessionValidationSchedulerEnabled" value="true"/>  
+			   <property name="sessionValidationInterval" value="1800000"/>  
+			   <property name="sessionIdCookie" ref="sessionIdCookie"/> 
+		</bean> -->
+
+		
+		
+		<!-- Shiro Filter -->
+		<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+			<property name="securityManager" ref="securityManager" />
+			
+			 <property name="loginUrl" value="/" /> 
+			
+			<!-- <property name="successUrl" value="/main/index" /> -->
+			
+			<property name="unauthorizedUrl" value="/loginAction/toLogin" />
+			
+			<property name="filterChainDefinitions">
+				<value>
+				/loginAction/toLogin        = anon
+				/userAction/toResetPassword = anon
+				/userAction/resetPassword   = anon
+				/loginAction/login          = anon
+				/registAction/toRegist      = anon
+				/registAction/regist        = anon
+				/wxLoginAction/toLogin		= anon
+				/wxLoginAction/sendCode		= anon
+				/wxLoginAction/hasTel		= anon
+				/wxLoginAction/login		= anon 
+	           	/secCodeAction/code.action  = anon
+	           	/index.html 	 	        = anon
+	           	/index.jsp			        = anon
+	           	/source/**			        = anon
+	           	/**					        = authc
+				</value>
+			</property>
+		</bean>
+	<!-- ================ Shiro end ================ -->
+</beans>
