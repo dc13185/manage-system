@@ -33,8 +33,8 @@ import com.ms.system.util.UuidUtil;
 @ParentPackage("json-default") 
 @Controller
 public  class FoodMenuAction extends SuperAction {
-	 
-	 @Autowired 
+
+	 @Autowired
 	 private StoreTypeService storeTypeService;
 	 
 	 private PageModel<FoodMenu> page= new PageModel<>();

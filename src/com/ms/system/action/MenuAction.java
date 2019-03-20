@@ -20,17 +20,15 @@ import com.ms.system.util.Tools;
 @Controller
 public class MenuAction extends SuperAction{
 	 
-	private static final long serialVersionUID = 1L;
 
-	private String menu_url = "/menuAction/toMenuList";
+	 private String menu_url = "/menuAction/toMenuList";
 	 
 	 private Map<Object, Object> dataMap = new HashMap<Object, Object>();
 	 
 	 public Map<Object, Object> getDataMap() {
 			return dataMap;
 		}
-	 
-	 
+
 	 
 	@Action(value="toMenuList",results={@Result(name="menuList",location=ROUTE+"system/menuAction/menuList.jsp",type="dispatcher"),
 			@Result(name="noRole",location=ROUTE+"noRole.jsp",type="dispatcher")})
@@ -38,7 +36,7 @@ public class MenuAction extends SuperAction{
 		 if(RoleUtil.hasMenu(menu_url)){
 			 return "menuList";
 		 }else{
-			 return "menuList";
+			 return "noRole";
 		 }
 		
 	 }
