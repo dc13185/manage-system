@@ -27,12 +27,28 @@ public class StaffService {
     * @Author: dong.chao
     * @Date: 2019/3/19 
     */ 
-    public void getStaffListByPage(PageModel<Staff> page, String searchText){
+    public PageModel<Staff> getStaffListByPage(PageModel<Staff> page, String searchText){
         StringBuilder sql = new StringBuilder(" from Staff as bs");
         if(StringUtils.isNotBlank(searchText)){
             sql.append("where bs.staffName like '%").append(searchText).append("%' ");
         }
-        systemRepository.queryByPage(sql.toString(),page);
+        page = systemRepository.queryByPage(sql.toString(),page);
+        return page;
+    }
+
+    public void deleteStaffByIds(String[] _arrays) {
+        if(_arrays.length>0){
+            String sql="delete from business_staff where staff_id in";
+            for (int i = 0; i < _arrays.length; i++) {
+                if(i==0){
+                    sql+="('"+_arrays[i]+"'";
+                }else{
+                    sql+=",'"+_arrays[i]+"'";
+                }
+            }
+            sql+=")";
+             systemRepository.updateBySql(sql);
+        }
     }
 
 }
