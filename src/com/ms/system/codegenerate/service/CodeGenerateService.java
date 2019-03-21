@@ -17,15 +17,34 @@ import java.util.Map;
  **/
 public class CodeGenerateService {
 
+    private String pagePath;
+
+    private File pageFile;
+
     private void generateActionFile(TemplateBean templateBean) throws Exception {
-        final String pagePath = templateBean.getCodePath() +"\\"+templateBean.getType()+"\\"+templateBean.getPackageName()+ "\\action\\";
-        File pageFile = new File(pagePath);
+        pagePath = templateBean.getCodePath() +"\\"+templateBean.getType()+"\\"+templateBean.getPackageName()+ "\\action\\";
+        pageFile = new File(pagePath);
         if (!pageFile.exists()) {
             pageFile.mkdirs();
         }
-        final String suffix = "Action.java";
-        final String path = pagePath + templateBean.getEntityName() + suffix;
-        final String templateName = "Action.ftl";
+        String suffix = "Action.java";
+        String path = pagePath + templateBean.getEntityName() + suffix;
+        String templateName = "Action.ftl";
+        File mapperFile = new File(path);
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("template",templateBean);
+        generateFileByTemplate(templateName, mapperFile, dataMap);
+    }
+
+    private void generateEntityFile(TemplateBean templateBean) throws Exception {
+        pagePath = templateBean.getCodePath() +"\\"+templateBean.getType()+"\\"+templateBean.getPackageName()+ "\\entity\\";
+        pageFile = new File(pagePath);
+        if (!pageFile.exists()) {
+            pageFile.mkdirs();
+        }
+        String suffix = ".java";
+        String path = pagePath + templateBean.getEntityName() + suffix;
+        String templateName = "Entity.ftl";
         File mapperFile = new File(path);
         Map<String, Object> dataMap = new HashMap<>();
         dataMap.put("template",templateBean);
@@ -51,9 +70,14 @@ public class CodeGenerateService {
         colums.add("name");
         colums.add("age");
         templateBean.setColumns(colums);
+        List<String> dbColums = Lists.newArrayList();
+        dbColums.add("db_name");
+        dbColums.add("db_age");
+        templateBean.setDbColumns(dbColums);
 
         CodeGenerateService codeGenerateService = new CodeGenerateService();
         codeGenerateService.generateActionFile(templateBean);
+        codeGenerateService.generateEntityFile(templateBean);
     }
 
 

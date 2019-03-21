@@ -19,6 +19,10 @@ public class TemplateBean {
     private String entityName;
     //字段集合
     private List<String> columns;
+    //sql字段集合
+    private List<String> dbColumns;
+    //
+    private List<String> remarks;
 
     public String getCodePath() {
         return codePath;
@@ -58,5 +62,21 @@ public class TemplateBean {
 
     public void setColumns(List<String> columns) {
         this.columns = columns;
+    }
+
+    public List<String> getDbColumns() {
+        return dbColumns;
+    }
+
+    public void setDbColumns(List<String> dbColumns) {
+        this.dbColumns = dbColumns;
+    }
+
+    public List<String> getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(List<String> remarks) {
+        this.remarks = remarks;
     }
 }
