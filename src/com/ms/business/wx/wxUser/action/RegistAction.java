@@ -66,7 +66,7 @@ public class RegistAction extends SuperAction{
 			 UsernamePasswordToken token = new UsernamePasswordToken(user.getPhone(), user.getPassword()); 
 			 //登陆
 			 currentUser.login(token);
-			 
+			currentUser.getSession().setAttribute(Const.SESSION_USER, user);
 		      dataMap.put("status", "success");
 		}else{
 			dataMap.put("status", "codeError"); //验证码错误

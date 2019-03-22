@@ -1,11 +1,11 @@
-package com.ms.business.Food.service;
+package com.ms.business.food.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ms.business.Food.entity.FoodMenu;
+import com.ms.business.food.entity.FoodMenu;
 import com.ms.system.hibernate.base.SystemRepository;
 
 @Service

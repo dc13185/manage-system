@@ -9,8 +9,11 @@ import java.util.List;
  **/
 public class TemplateBean {
 
+    private String theme;
     //代码输出地址
     private String codePath;
+    //jsp输出地址
+    private String jspPath;
     //包名称   如com.ms.system.menu.action 中 menu 为包名称
     private String packageName;
     //类型 只有:business 和 system 两种类型
@@ -78,5 +81,21 @@ public class TemplateBean {
 
     public void setRemarks(List<String> remarks) {
         this.remarks = remarks;
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    public String getJspPath() {
+        return jspPath;
+    }
+
+    public void setJspPath(String jspPath) {
+        this.jspPath = jspPath;
     }
 }

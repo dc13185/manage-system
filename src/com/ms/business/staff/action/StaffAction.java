@@ -78,6 +78,8 @@ public class StaffAction extends SuperAction {
         page = staffService.getStaffListByPage(page,searchText);
         return "json";
     }
+
+
     //添加员工
     @Action(value="addStaff",results={@Result(name="json",type="json")})
     public String addStaff() throws IOException{

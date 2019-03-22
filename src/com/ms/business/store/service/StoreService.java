@@ -9,7 +9,7 @@ import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ms.business.StoreManagement.entity.StoreType;
+import com.ms.business.storeManagement.entity.StoreType;
 import com.ms.business.store.entity.Store;
 import com.ms.business.store.entity.StoreAdminType;
 import com.ms.business.wx.order.entity.Order;

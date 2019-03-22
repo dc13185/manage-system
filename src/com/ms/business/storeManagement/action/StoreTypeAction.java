@@ -1,4 +1,4 @@
-package com.ms.business.StoreManagement.action;
+package com.ms.business.storeManagement.action;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.stereotype.Controller;
 
-import com.ms.business.StoreManagement.entity.StoreType;
+import com.ms.business.storeManagement.entity.StoreType;
 import com.ms.business.store.entity.Store;
 import com.ms.system.entity.SystemUser;
 import com.ms.system.hibernate.page.PageModel;

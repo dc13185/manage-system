@@ -60,7 +60,7 @@
                     </div>
                     <div class="modal-body">
                         <form role="form">
-                            <!--<input type="text" id="storeId" name="storeId" > -->
+                            <input type="hidden" id="staffId" name="staffId" >
                             <div class="form-group">
                                 <label>员工名</label>
                                 <input type="text" id="staffName" name="staffName" placeholder="请输入员工名字" class="form-control">
