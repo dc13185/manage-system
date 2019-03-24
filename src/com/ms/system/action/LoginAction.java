@@ -86,7 +86,7 @@ public class LoginAction extends SuperAction {
 	 @Action(value="login",results={@Result(name="json",type="json"),@Result(name="isAuth",location=ROUTE+"system/welcome.jsp",type="dispatcher")})
 	 public String login(){
 		//shiro管理的session
-		 Subject currentUser = SecurityUtils.getSubject();  
+		 Subject currentUser = SecurityUtils.getSubject();
 		 //没有认证过
 		if(!currentUser.isAuthenticated()){
 			 String username =request.getParameter("username");

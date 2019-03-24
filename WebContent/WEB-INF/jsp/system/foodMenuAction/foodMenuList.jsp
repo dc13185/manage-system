@@ -21,7 +21,6 @@
     <link href="${_ctx}/source/css/style.css?v=4.1.0" rel="stylesheet">
     <link href="${_ctx}/source/js/plugins/zTree/2.6/zTreeStyle.css" rel="stylesheet">
     <link href="${_ctx}/source/js/plugins/cropper/cropper.min.css" rel="stylesheet">
-    
     <link href="${_ctx}/source/css/inputUpload.css" rel="stylesheet">
 
 </head>
@@ -293,9 +292,9 @@
 		}
 
 		        //外部js调用
-		        laydate({
+                laydate.render({
 		            elem: '#food_menu_foodtime', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
-		            event: 'focus' //响应事件。如果没有传入event，则按照默认的click
+		            event: 'click' //响应事件。如果没有传入event，则按照默认的click
 		        });
 		
 			  //修改
