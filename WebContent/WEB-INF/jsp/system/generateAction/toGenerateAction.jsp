@@ -163,6 +163,11 @@
     	$.post("${_ctx}/generateAction/generateCode",{
     	    "type":type,"srcCodePath":srcCodePath,"jspCodePath":jspCodePath,"theme":theme,"entityName":entityName,"columArrays":columStr,"dbColumArrays":dbColumStr,"remarks":remarkStr
         },function(data){
+    	    if(data.dataMap.status == "success"){
+    	        alert("代码生成成功");
+            }else{
+    	        alert("系统错误");
+            }
     	});
     })
 

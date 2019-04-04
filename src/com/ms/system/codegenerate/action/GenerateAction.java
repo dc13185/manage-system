@@ -76,8 +76,8 @@ public class GenerateAction extends SuperAction {
             String  remarkStr   =  request.getParameter("remarks");
 
             List columArrays = Arrays.asList(columArrayStr.split(","));
-            List dbColumArrays = Arrays.asList(columArrayStr.split(","));
-            List remarks = Arrays.asList(columArrayStr.split(","));
+            List dbColumArrays = Arrays.asList(dbColumArrayStr.split(","));
+            List remarks = Arrays.asList(remarkStr.split(","));
 
             TemplateBean templateBean = new TemplateBean();
             templateBean.setCodePath(srcCodePath);

@@ -24,7 +24,7 @@
 <body class="gray-bg">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>财务统计</h5>
+                <h5>财务统计(默认显示当月消费金额)</h5>
             </div>
          <div class="ibox-content">
              <div class="modal-content animated bounceInRight ">

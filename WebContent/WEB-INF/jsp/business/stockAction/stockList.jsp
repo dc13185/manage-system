@@ -6,22 +6,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="favicon.ico">
-    <link href="${r'${_ctx}'}/source/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="${r'${_ctx}'}/source/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="${r'${_ctx}'}/source/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
-    <link href="${r'${_ctx}'}/source/css/animate.css" rel="stylesheet">
-    <link href="${r'${_ctx}'}/source/css/style.css?v=4.1.0" rel="stylesheet">
-    <link href="${r'${_ctx}'}/source/js/plugins/zTree/2.6/zTreeStyle.css" rel="stylesheet">
-    <link href="${r'${_ctx}'}/source/js/plugins/cropper/cropper.min.css" rel="stylesheet">
+    <link href="${_ctx}/source/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="${_ctx}/source/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="${_ctx}/source/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="${_ctx}/source/css/animate.css" rel="stylesheet">
+    <link href="${_ctx}/source/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="${_ctx}/source/js/plugins/zTree/2.6/zTreeStyle.css" rel="stylesheet">
+    <link href="${_ctx}/source/js/plugins/cropper/cropper.min.css" rel="stylesheet">
     
-    <link href="${r'${_ctx}'}/source/css/inputUpload.css" rel="stylesheet">
+    <link href="${_ctx}/source/css/inputUpload.css" rel="stylesheet">
 
 </head>
 
 <body class="gray-bg">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>${template.theme}管理</h5>
+                <h5>库存管理管理</h5>
             </div>
          <div class="ibox-content">
            <!-- 表格 -->
@@ -56,19 +56,47 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
                         </button>
-                        <h4 class="modal-title">新增${template.theme}</h4>
+                        <h4 class="modal-title">入库</h4>
                     </div>
                     <div class="modal-body">
                         <form role="form">
-                            <input type="hidden" id="${template.columns[0]}" name="${template.columns[0]}" >
-                            <#list template.columns as column>
-                                <#if column_index != 0>
+                            <input type="hidden" id="StockId" name="StockId" >
                             <div class="form-group">
-                            <label>${template.remarks[column_index]} </label>
-                            <input type="text" id="${column}" name="${column}" placeholder="请输入${template.remarks[column_index]}" class="form-control">
+                            <label>库存食材名称 </label>
+                            <input type="text" id="StockName" name="StockName" placeholder="请输入库存食材名称" class="form-control">
                             </div>
-                                </#if>
-                            </#list>
+                            <div class="form-group">
+                            <label>剩余库存(KG)</label>
+                            <input type="number" id="StockNumber" name="StockNumber" placeholder="请输入库存数量" class="form-control">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary saveSubmit">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 入库出库操作 -->
+        <div class="modal inmodal" id="pullModal" tabindex="-1" role="dialog"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated bounceInRight">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                        </button>
+                        <h4 class="modal-title">出入库操作（正数为入库 负数为出库）</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <input type="hidden" id="pullStockId" name="pullStockId" >
+                            <div class="form-group">
+                                <label>剩余库存(KG)</label>
+                                <input type="number" id="pullStockNumber" name="pullStockNumber" placeholder="请输入数量(KG)" class="form-control">
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -86,21 +114,21 @@
                
 
     <!-- 全局js -->
-    <script src="${r'${_ctx}'}/source/js/jquery.min.js?v=2.1.4"></script>
-    <script src="${r'${_ctx}'}/source/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="${_ctx}/source/js/jquery.min.js?v=2.1.4"></script>
+    <script src="${_ctx}/source/js/bootstrap.min.js?v=3.3.6"></script>
 
     <!-- 自定义js -->
-    <script src="${r'${_ctx}'}/source/js/content.js?v=1.0.0"></script>
+    <script src="${_ctx}/source/js/content.js?v=1.0.0"></script>
 
 
     <!-- Bootstrap table -->
-    <script src="${r'${_ctx}'}/source/js/plugins/bootstrap-table/bootstrap-table.js"></script>
-    <script src="${r'${_ctx}'}/source/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script> 
-    <script src="${r'${_ctx}'}/source/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script> 
-    <script src="${r'${_ctx}'}/source/js/plugins/bootstrap-table/export/tableExport.js"></script>
-    <script src="${r'${_ctx}'}/source/js/plugins/bootstrap-table/export/bootstrap-table-export.js"></script>
-    <script src="${r'${_ctx}'}/source/js/plugins/tips/jquery.tips.js"></script>
-    <script src="${r'${_ctx}'}/source/js/plugins/cropper/cropper.min.js"></script>
+    <script src="${_ctx}/source/js/plugins/bootstrap-table/bootstrap-table.js"></script>
+    <script src="${_ctx}/source/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script> 
+    <script src="${_ctx}/source/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script> 
+    <script src="${_ctx}/source/js/plugins/bootstrap-table/export/tableExport.js"></script>
+    <script src="${_ctx}/source/js/plugins/bootstrap-table/export/bootstrap-table-export.js"></script>
+    <script src="${_ctx}/source/js/plugins/tips/jquery.tips.js"></script>
+    <script src="${_ctx}/source/js/plugins/cropper/cropper.min.js"></script>
     
 	<script type="text/javascript">
 	 var widths=136;
@@ -119,7 +147,7 @@
 			//初始化Table
 			oTableInit.Init = function () {
 				$('#exampleTableEvents').bootstrapTable({
-					url:'${r'${_ctx}'}/${template.packageName}Action/find${template.entityName}ListByPage',         //请求后台的URL（*）
+					url:'${_ctx}/stockAction/findStockListByPage',         //请求后台的URL（*）
 					method: 'post',                      //请求方式（*）
 					toolbar: '#exampleTableEventsToolbar',                //工具按钮用哪个容器
 					striped: true,                      //是否显示行间隔色
@@ -175,13 +203,8 @@
 					                  return pageSize * (pageNumber - 1) + index + 1;    // 返回每条的序号： 每页条数 *（当前页 - 1 ）+ 序号
 					              }
 					          },
-                              <#list template.columns as column>
-                                <#if column_index != 0>
-                              {title:'${template.remarks[column_index]}',field: '${column? cap_first}',sortable:true ,align:"center" },
-                                </#if>
-                               </#list>
-
-
+                              {title:'库存食材名称',field: 'stockName',sortable:true ,align:"center" },
+                              {title:'剩余库存(KG)',field: 'stockNumber',sortable:true ,align:"center" },
                               {title:'操作',field:"Button",align:"center",formatter:function (value, row, index) {
                                         return [
                                             '<i class="fa fa-edit editButton" style="cursor: pointer;" ></i>'
@@ -212,10 +235,9 @@
 			  //修改
 			window.operateEvents ={
 					"click .editButton":function(e,value,row,index){
-                            <#list template.columns as column>
-                            $("#${column}").val(row.${column});
-                            </#list>
-					    	$("#myModal").modal();
+                            $("#pullStockId").val(row.stockId);
+                            $("#pullStockNumber").val("");
+					    	$("#pullModal").modal();
 					}
 			  }
 		
@@ -232,12 +254,12 @@
 	            }else {
 	                var arrays = new Array();// 声明一个数组
 	                $(rows).each(function () {// 通过获得别选中的来进行遍历
-	                    arrays.push(this.${template.columns[0]});// cid为获得到的整条数据中的一列
+	                    arrays.push(this.StockId);// cid为获得到的整条数据中的一列
 	                });
 	                var idcard = arrays.join(','); // 获得要删除的id
 	                $.ajax({
 						type:"post",
-						url:"${r'${_ctx}'}/${template.packageName}Action/delete${template.entityName}ByIds",
+						url:"${_ctx}/stockAction/deleteStockByIds",
 						data:{"idcard":idcard},
 						success:function(res){
 							if(res.dataMap.status =="success"){
@@ -253,42 +275,36 @@
 		  })
 		  
 		    $("#addButton").on("click", function () {
-                <#list template.columns as column>
-                $("#${column}").val("");
-                </#list>
+                $("#StockId").val("");
+                $("#StockName").val("");
+                $("#StockNumber").val("");
 				//$(this).parents(".uploader").find(".filename").val($(this).val());
 		    	$("#myModal").modal();
 		    })
 		    
 		    $(".saveSubmit").on("click",function(){
-                <#list template.columns as column>
-                var ${column} = $("#${column}").val();
-                </#list>
+                var StockId = $("#pullStockId").val();
+                var StockName = $("#StockName").val();
+                var StockNumber = $("#StockNumber").val();
+                var pullStockNumber = $("#pullStockNumber").val();
 
-                <#list template.columns as column>
-                    <#if column_index != 0>
-                if(${column}==''){
-                    $("#${column}").tips({
+                if(StockNumber==''){
+                    $("#StockNumber").tips({
                         side:2,
-                        msg:'请填写${template.remarks[column_index]}',
+                        msg:'请填写库存数量',
                         bg:'#AE81FF',
                         time:2
                     });
                 }
-                    </#if>
-                </#list>
 
-
-
-
-		       	if(${template.columns[0]} == null || ${template.columns[0]}==""){
-                    $.post("${r'${_ctx}'}/${template.packageName}Action/add${template.entityName}",{<#list template.columns as column>  "${column}":${column},  </#list> "i":""}, function(data){
+		       	if(StockId == null || StockId==""){
+                    $.post("${_ctx}/stockAction/addStock",{  "StockId":StockId,    "StockName":StockName,    "StockNumber":StockNumber,    "i":""}, function(data){
                         $("#myModal").modal('hide');
                         $('#exampleTableEvents').bootstrapTable(('refresh'));
                     });
                 }else{
-                    $.post("${r'${_ctx}'}/${template.packageName}Action/edit${template.entityName}",{<#list template.columns as column>  "${column}":${column},  </#list> "i":""} ,function(data){
-                        $("#myModal").modal('hide');
+                    $.post("${_ctx}/stockAction/editStock",{  "StockId":StockId,    "pullStockNumber":pullStockNumber , "i":""} ,function(data){
+                        $("#pullModal").modal('hide');
                         $('#exampleTableEvents').bootstrapTable(('refresh'));
                     });
                 }

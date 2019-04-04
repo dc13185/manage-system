@@ -37,6 +37,9 @@ public class Staff {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;   //创建时间
 
+    @Column(length=125,name = "store_id")
+    private String storeId;   //店铺id  如果没有店铺id 则代表是管理人员
+
 
 
     public String getStaffName() {
@@ -85,5 +88,13 @@ public class Staff {
 
     public void setStaffId(int staffId) {
         this.staffId = staffId;
+    }
+
+    public String getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
     }
 }

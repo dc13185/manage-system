@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ include file="/source/base/wxTablib.jsp"%>
 
-<!DOCTYPE html ">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>余额充值</title>

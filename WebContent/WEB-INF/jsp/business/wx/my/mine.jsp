@@ -16,21 +16,21 @@
 <body ontouchstart>
 <!--主体-->
 <div class='weui-content'>
- <!-- <div class="wy-center-top">
+ <div class="wy-center-top">
     <div class="weui-media-box weui-media-box_appmsg">
       <div class="weui-media-box__hd"><img class="weui-media-box__thumb radius" src="${_ctx}/source/wx/upload/headimg.jpg" alt=""></div>
       <div class="weui-media-box__bd">
         <h4 class="weui-media-box__title user-name">飞翔的小土豆</h4>
         <p class="user-grade">等级：普通会员</p>
-        <p class="user-integral">待返还金额：<em class="num">500.0</em>元</p>
+     <%--   <p class="user-integral">待返还金额：<em class="num">500.0</em>元</p>--%>
       </div>
     </div>
-    <div class="xx-menu weui-flex">
+ <%--   <div class="xx-menu weui-flex">
       <div class="weui-flex__item"><div class="xx-menu-list"><em>987</em><p>账户余额</p></div></div>
       <div class="weui-flex__item"><div class="xx-menu-list"><em>459</em><p>我的蓝豆</p></div></div>
       <div class="weui-flex__item"><div class="xx-menu-list"><em>4</em><p>收藏商品</p></div></div>
-    </div>
-  </div>-->
+    </div>--%>
+  </div>
   <div class="weui-panel weui-panel_access">
     <div class="weui-panel__hd">
       <a href="${_ctx}/orderAction/toAllOrder" class="weui-cell weui-cell_access center-alloder">
@@ -70,6 +70,13 @@
         <div class="weui-panel__bd">
           <div class="weui-media-box weui-media-box_small-appmsg">
             <div class="weui-cells">
+              <a class="weui-cell weui-cell_access" href="address_list.html">
+                <div class="weui-cell__hd"><img src="${_ctx}/source/wx/images/center-icon-dz.png" alt="" class="center-list-icon"></div>
+                <div class="weui-cell__bd weui-cell_primary">
+                  <p class="center-list-txt">个人信息</p>
+                </div>
+                <span class="weui-cell__ft"></span>
+              </a>
               <a class="weui-cell weui-cell_access" href="${_ctx}/userAction/toResetPassword">
                 <div class="weui-cell__hd"><img src="${_ctx}/source/wx/images/center-icon-dlmm.png" alt="" class="center-list-icon"></div>
                 <div class="weui-cell__bd weui-cell_primary">

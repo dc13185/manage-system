@@ -27,10 +27,13 @@ public class StaffService {
     * @Author: dong.chao
     * @Date: 2019/3/19 
     */ 
-    public PageModel<Staff> getStaffListByPage(PageModel<Staff> page, String searchText){
-        StringBuilder sql = new StringBuilder(" from Staff as bs");
+    public PageModel<Staff> getStaffListByPage(PageModel<Staff> page, String searchText,String storeId){
+        StringBuilder sql = new StringBuilder(" from Staff as bs where 1=1");
         if(StringUtils.isNotBlank(searchText)){
-            sql.append("where bs.staffName like '%").append(searchText).append("%' ");
+            sql.append(" and  bs.staffName like '%").append(searchText).append("%' ");
+        }
+        if(StringUtils.isNotBlank(storeId)){
+            sql.append(" and  bs.storeId = '").append(storeId).append("'");
         }
         page = systemRepository.queryByPage(sql.toString(),page);
         return page;

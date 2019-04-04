@@ -2,9 +2,13 @@ package com.ms.business.staff.action;
 
 import com.ms.business.staff.entity.Staff;
 import com.ms.business.staff.service.StaffService;
+import com.ms.system.entity.SystemUser;
 import com.ms.system.hibernate.page.PageModel;
 import com.ms.system.superAction.SuperAction;
 import com.ms.system.util.*;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -71,11 +75,21 @@ public class StaffAction extends SuperAction {
     //页面返回数据
     @Action(value="findStaffListByPage",results={@Result(name="json",type="json")})
     public String findStaffListByPage(){
+        Session session = SecurityUtils.getSubject().getSession();
+        SystemUser user = (SystemUser) session.getAttribute(Const.SESSION_USER);
+
         String pageSize = request.getParameter("pageSize");
         String pageNumber =request.getParameter("pageNumber");String searchText =request.getParameter("searchText");
         page.setPageSize(Integer.parseInt(pageSize));
         page.setPageNumber(Integer.parseInt(pageNumber));
-        page = staffService.getStaffListByPage(page,searchText);
+
+        if(StringUtils.isBlank(user.getTenant_id())){
+            page = staffService.getStaffListByPage(page,searchText,null);
+        }else{
+            page = staffService.getStaffListByPage(page,searchText,user.getTenant_id());
+        }
+
+
         return "json";
     }
 
@@ -93,6 +107,12 @@ public class StaffAction extends SuperAction {
         newStaff.setStaffPosition(staffPosition);
         newStaff.setStaffAddress(staffAddress);
         newStaff.setCreateDate(new Date());
+        //如果是店长 则加入店铺id
+        Session session = SecurityUtils.getSubject().getSession();
+        SystemUser user = (SystemUser) session.getAttribute(Const.SESSION_USER);
+        if(StringUtils.isNoneBlank(user.getTenant_id())){
+            newStaff.setStoreId(user.getTenant_id());
+        }
         systemRepository.save(newStaff);
         dataMap.put("status", "success");
         return "json";
