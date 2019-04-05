@@ -116,7 +116,8 @@ public class StoreAction extends SuperAction{
 		 String storeType_name =request.getParameter("storeType_name");
 		 String storeType_id =request.getParameter("storeType_id");
 		 String storeUserID=request.getParameter("storeUserID");
-		 SystemUser systemUser=systemRepository.get(SystemUser.class, storeUserID);//绑定的用户
+		 //绑定的用户
+		 SystemUser systemUser=systemRepository.get(SystemUser.class, storeUserID);
 		 
 		 Store store;
 		 String imgId;

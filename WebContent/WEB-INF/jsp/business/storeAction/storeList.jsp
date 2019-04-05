@@ -151,12 +151,9 @@
 	 var widths=136;
 	 var heights=150;
 		$(function(){
-			
 			//初始化Table
 			var oTable = new TableInit();
 			oTable.Init();
-	
-			
 		})
 		
 			//过滤类型
