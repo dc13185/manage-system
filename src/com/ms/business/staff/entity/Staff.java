@@ -17,8 +17,9 @@ public class Staff {
 
     @Id
     @GeneratedValue(generator="staffGenerator")
-    @GenericGenerator(name="staffGenerator",strategy="assigned")
-    private String staffId;
+    @GenericGenerator(name="staffGenerator",strategy="native")
+    @Column(length=125,name = "staff_id")
+    private int staffId;
 
     @Column(length=125,name = "store_name")
     private String staffName;
@@ -36,14 +37,10 @@ public class Staff {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;   //创建时间
 
+    @Column(length=125,name = "store_id")
+    private String storeId;   //店铺id  如果没有店铺id 则代表是管理人员
 
-    public String getStaffId() {
-        return staffId;
-    }
 
-    public void setStaffId(String staffId) {
-        this.staffId = staffId;
-    }
 
     public String getStaffName() {
         return staffName;
@@ -83,5 +80,21 @@ public class Staff {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public int getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(int staffId) {
+        this.staffId = staffId;
+    }
+
+    public String getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
     }
 }

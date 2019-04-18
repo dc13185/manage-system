@@ -14,8 +14,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.ms.business.Food.entity.FoodMenu;
-import com.ms.business.StoreManagement.entity.StoreType;
+import com.ms.business.storeManagement.entity.StoreType;
 
 //店铺的实体类
 @Entity

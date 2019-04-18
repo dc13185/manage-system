@@ -1,4 +1,4 @@
-package com.ms.business.StoreManagement.entity;
+package com.ms.business.storeManagement.entity;
 
 
 import java.util.List;
@@ -12,7 +12,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.ms.business.Food.entity.FoodMenu;
+import com.ms.business.food.entity.FoodMenu;
 
 @Entity
 @Table(name="business_storetype")

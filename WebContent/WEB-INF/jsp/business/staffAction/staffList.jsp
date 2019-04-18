@@ -21,13 +21,12 @@
 <body class="gray-bg">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>订单列表</h5>
+                <h5>员工管理</h5>
             </div>
          <div class="ibox-content">
            <!-- 表格 -->
 			 <div class="row row-lg">
 				<div class="col-sm-12">
-					Example Events
 					<div class="example-wrap">
 						<div class="example">
 							<div class="btn-group hidden-xs" id="exampleTableEventsToolbar"
@@ -47,14 +46,52 @@
 			</div> 
         </div>
         	<!-- 表格结束 -->
-		
-		
-		
-
-	
-
 	</div>
 
+        <!-- 新增修改菜单 -->
+        <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated bounceInRight">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                        </button>
+                        <h4 class="modal-title">新增员工</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <input type="hidden" id="staffId" name="staffId" >
+                            <div class="form-group">
+                                <label>员工名</label>
+                                <input type="text" id="staffName" name="staffName" placeholder="请输入员工名字" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>员工职位</label>
+                                <input type="text" id="staffPosition" name="staffPosition" placeholder="请输入员工职位" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>员工住址</label>
+                                <input type="text" id="staffAddress" name="staffAddress" placeholder="请输入家庭地址" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>员工电话</label>
+                                <input type="text" id="phone" name="phone" placeholder="请输入员工电话" class="form-control">
+                            </div>
+                            <div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary saveSubmit">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        </div>
 
                
 
@@ -84,46 +121,7 @@
 			oTable.Init();
 		})
 		
-			//过滤类型
-	function fileType(obj){
-		$.cropper =false;
-		var fileType=obj.value.substr(obj.value.lastIndexOf(".")).toLowerCase();//获得文件后缀名
-	    if(fileType != '.gif' && fileType != '.png' && fileType != '.jpg' && fileType != '.jpeg'){
-	    	$("#tp").tips({
-				side:3,
-	            msg:'请上传图片格式的文件',
-	            bg:'#AE81FF',
-	            time:3
-	        });
-	    	$("#tp").val('');
-	    }else{
-	    	//裁剪图片
-	    	$("#ttt").show();
-	    	$("#tp").parents(".uploader").find(".filename").val($("#tp").val());
-	    	 if (obj.files && obj.files[0])  
-	    	 {  
-	    		 var reader = new FileReader();  
-	    		 reader.onload = function(evt){  
-	    			 $("#weui-cell__ft_test").attr("src",evt.target.result);
-		    		 $('#weui-cell__ft_test').cropper("destroy");
-		    		 $('#weui-cell__ft_test').cropper({
-		    			  aspectRatio: widths /heights,
-			    		  crop: function(data) {
-			    			  //.toDataURL('image/jpeg', 1.0);
-			    		  },
-			    		  built: function (data) {
-			    			
-			   			  }
-			    		});
-	    		 }    
-	    		 reader.readAsDataURL(obj.files[0]);  
-	    	 }
-	    	 
-	   	  $.cropper = true;
-	    	 //$("#icon_tr").show();
-	    }
-	} 
-		
+
 		
 		var TableInit = function () {
 
@@ -131,7 +129,7 @@
 			//初始化Table
 			oTableInit.Init = function () {
 				$('#exampleTableEvents').bootstrapTable({
-					url:'${_ctx}/storeAction/findOrderListByPage',         //请求后台的URL（*）
+					url:'${_ctx}/staffAction/findStaffListByPage',         //请求后台的URL（*）
 					method: 'post',                      //请求方式（*）
 					toolbar: '#exampleTableEventsToolbar',                //工具按钮用哪个容器
 					striped: true,                      //是否显示行间隔色
@@ -166,8 +164,8 @@
 			        Icons:'glyphicon-export',
 					responseHandler:function(res) {
 						  return {
-			                    "total": res.orderPage.total,//总页数
-			                    "rows": res.orderPage.rows   //数据
+			                    "total": res.page.total,//总页数
+			                    "rows": res.page.rows   //数据
 			                 };
 					},
 				  	icons: {
@@ -188,21 +186,26 @@
 					              }
 					          },
 					          
-					          {title:'菜',field: 'food_menu_foodname',sortable:true ,align:"center" },
-					          {title:'价格',field: 'money',align:"center",sortable:true ,formatter: function (value, row, index) {
-					        	  var price = parseInt(value)/100
-					        	  return price;
-				              }
-					          },
-					          {title:'数量',align:"center",align:"center",field: 'count'},
-					          {title:'下单时间',align:"center",align:"center",field: 'cTime'},
-					          {title:'备注',align:"center",align:"center",field: 'remarks'},
-					         
-					          {title:'状态',align:"center",align:"center",field: 'status',formatter: function (value, row, index) {
-					        	 	 var status;
-					        	 	 if(value==1){status="未评价"}else if(value==2){status="已经完成"}
-					        	 	 return status;
-					          }},
+					          {title:'员工编号',field: 'staffId',sortable:true ,align:"center" },
+					          // {title:'价格',field: 'money',align:"center",sortable:true ,formatter: function (value, row, index) {
+					        	//   var price = parseInt(value)/100
+					        	//   return price;
+				              // }
+					          // },
+                              {title:'姓名',align:"center",align:"center",field: 'staffName'},
+                              {title:'员工职位',align:"center",align:"center",field: 'staffPosition'},
+					          {title:'家庭地址',align:"center",align:"center",field: 'staffAddress'},
+					          {title:'电话号码',align:"center",align:"center",field: 'phone'},
+					          {title:'创建时间',align:"center",align:"center",field: 'createDate',formatter: function (value, row, index) {
+                                      return  (value.split("T"))[0];
+                                          }},
+                              {title:'操作',field:"Button",align:"center",formatter:function (value, row, index) {
+                                        return [
+                                            '<i class="fa fa-edit editButton" style="cursor: pointer;" ></i>'
+                                        ].join("")
+
+                                    },events:operateEvents
+                              }
 					      ],
 				});
 			};
@@ -221,43 +224,22 @@
 			return oTableInit;
 			
 		}
-		
-		
-		
-		
-		
-		
+
 		
 			  //修改
 			window.operateEvents ={
 					"click .editButton":function(e,value,row,index){
-							$("#storeType").val(row.storeType_id);
-							$("#storeId").val(row.store_id);
-							$("#storeName").val(row.store_name);
-							$("#storeUserID").val(row.store_user_id);
-							$("#tp").parents(".uploader").find(".filename").val("点击修改图片");
-							$("#ttt").show();
+							$("#staffId").val(row.staffId);
+							$("#staffName").val(row.staffName);
+							$("#staffPosition").val(row.staffPosition);
+							$("#staffAddress").val(row.staffAddress);
+                            $("#phone").val(row.phone);
+                            $("#createDate").val(row.createDate);
 							if($.cropper){
 								$('#weui-cell__ft_test').cropper("destroy");
 							}
-							$("#weui-cell__ft_test").attr("src",row.store_image);
-							$("#weui-cell__ft_test").css({"width":widths,"height":heights});
-					    	$("#myModal").modal();	
-					},
-					"click .kzButton":function(e,value,row,index){
-						editStatus(row.store_id,'startup')
-					},
-					
-					"click .djButton":function(e,value,row,index){
-						editStatus(row.store_id,'activate')
-					},
-			}
-			  
-			function editStatus(storeId,status){
-				$.post("${_ctx}/storeAction/upOrDown",{"storeId":storeId,"status":status},function(data){
-		       		$('#exampleTableEvents').bootstrapTable(('refresh'));
-		       	});
-				  
+					    	$("#myModal").modal();
+					}
 			  }
 		
 		
@@ -273,12 +255,12 @@
 	            }else {
 	                var arrays = new Array();// 声明一个数组
 	                $(rows).each(function () {// 通过获得别选中的来进行遍历
-	                    arrays.push(this.store_id);// cid为获得到的整条数据中的一列
+	                    arrays.push(this.staffId);// cid为获得到的整条数据中的一列
 	                });
 	                var idcard = arrays.join(','); // 获得要删除的id
 	                $.ajax({
 						type:"post",
-						url:"${_ctx}/storeAction/deleteStore",
+						url:"${_ctx}/staffAction/deleteStaffByIds",
 						data:{"idcard":idcard},
 						success:function(res){
 							if(res.dataMap.status =="success"){
@@ -294,57 +276,42 @@
 		  })
 		  
 		    $("#addButton").on("click", function () {
-		    	$("#storeName").val("");
-		    	$("#storeType").val("");
-		    	$("#storeId").val("");
-		    	$("#storeUserID").val("");
+		    	$("#staffName").val("");
+                $("#staffId").val("");
+		    	$("#staffPosition").val("");
+		    	$("#staffAddress").val("");
+		    	$("#phone").val("");
 				//$(this).parents(".uploader").find(".filename").val($(this).val());
-				$("#tp").parents(".uploader").find(".filename").val("请选择图片文件");
-				$("#ttt").hide();
-		    	$("#myModal").modal();		
+		    	$("#myModal").modal();
 		    })
 		    
 		    $(".saveSubmit").on("click",function(){
-		    	var storeId = $("#storeId").val();
-		    	var storeUserID = $("#storeUserID").val();
-		    	var storeType_id=$("#storeType").val();
-		    	var storeType_name=$("#storeType").find("option:selected").text();;
-		    	var img;
-		    	if(storeId==""){
-		    		if(!$.cropper){
-		    			$("#tp").tips({
-							side:2,
-				            msg:'请先上传图片',
-				            bg:'#AE81FF',
-				            time:2
-				        });
-			    		
-			    		return ;
-		    		}
-		    	}
-		    	
-		    	if($.cropper){
-			    	var c = $("#weui-cell__ft_test").cropper('getCroppedCanvas',{
-			    		width: widths,
-						height:heights	
-			    	});
-			    	img =c.toDataURL('image/jpeg',0.8);
-		    	}
-		       	
-		       	var storeName =$("#storeName").val();
-		       	if(storeName==''){
-		       		$("#storeName").tips({
+		    	var staffId = $("#staffId").val();
+		    	var staffName = $("#staffName").val();
+		    	var staffPosition=$("#staffPosition").val();
+		       	var phone =$("#phone").val();
+                var staffAddress =$("#staffAddress").val();
+
+		       	if(staffName==''){
+		       		$("#staffName").tips({
 						side:2,
-			            msg:'请填写店铺名',
+			            msg:'请填写员工姓名',
 			            bg:'#AE81FF',
 			            time:2
 			        });
 		       	}
-		       	
-		       	$.post("${_ctx}/storeAction/addOrEditStore",{"storeId":storeId,"img":img,"storeName":storeName,"storeUserID":storeUserID,"storeType_id":storeType_id,"storeType_name":storeType_name},function(data){
-		       		$("#myModal").modal('hide');
-		       		$('#exampleTableEvents').bootstrapTable(('refresh'));
-		       	});
+		       	if(staffId == null || staffId==""){
+                    $.post("${_ctx}/staffAction/addStaff",{"staffId":staffId,"staffName":staffName,"staffPosition":staffPosition,"phone":phone,"staffAddress":staffAddress},function(data){
+                        $("#myModal").modal('hide');
+                        $('#exampleTableEvents').bootstrapTable(('refresh'));
+                    });
+                }else{
+                    $.post("${_ctx}/staffAction/editStaffInfo",{"staffId":staffId,"staffName":staffName,"staffPosition":staffPosition,"phone":phone,"staffAddress":staffAddress},function(data){
+                        $("#myModal").modal('hide');
+                        $('#exampleTableEvents').bootstrapTable(('refresh'));
+                    });
+                }
+
 		       	
 		    	
 		    })

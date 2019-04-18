@@ -55,9 +55,9 @@ public class RegistAction extends SuperAction{
 		
 		Subject currentUser = SecurityUtils.getSubject(); 
 		Session session = currentUser.getSession();
-		String sesson_code = (String) session.getAttribute(Const.SESSION_SECURITY_CODE);
+		String sessonCode = (String) session.getAttribute(Const.SESSION_SECURITY_CODE);
 		session.removeAttribute(Const.SESSION_SECURITY_CODE);
-		if(code.equals(sesson_code)){
+		if(code.equals(sessonCode)){
 			User user = new User();
 			user.setPhone(tel);
 			user.setPassword(MD5.md5(password));
@@ -66,10 +66,11 @@ public class RegistAction extends SuperAction{
 			 UsernamePasswordToken token = new UsernamePasswordToken(user.getPhone(), user.getPassword()); 
 			 //登陆
 			 currentUser.login(token);
-			 
+			currentUser.getSession().setAttribute(Const.SESSION_USER, user);
 		      dataMap.put("status", "success");
 		}else{
-			dataMap.put("status", "codeError"); //验证码错误
+            //验证码错误
+			dataMap.put("status", "codeError");
 		}
 		return "json";
 	}
@@ -82,7 +83,7 @@ public class RegistAction extends SuperAction{
 	
 	
 	
-	/* ---------------------存IP------------------------------*/
+	/** ---------------------存IP------------------------------*/
 	public void resultIp(){
 		request.setAttribute("ip", ipService.getSystemIp());
 	}

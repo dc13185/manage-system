@@ -1,4 +1,4 @@
-package com.ms.business.Food.action;
+package com.ms.business.food.action;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -14,9 +14,9 @@ import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.ms.business.Food.entity.FoodMenu;
-import com.ms.business.StoreManagement.entity.StoreType;
-import com.ms.business.StoreManagement.service.StoreTypeService;
+import com.ms.business.food.entity.FoodMenu;
+import com.ms.business.storeManagement.entity.StoreType;
+import com.ms.business.storeManagement.service.StoreTypeService;
 import com.ms.business.store.entity.Store;
 import com.ms.system.entity.SystemUser;
 import com.ms.system.hibernate.page.PageModel;
@@ -33,8 +33,8 @@ import com.ms.system.util.UuidUtil;
 @ParentPackage("json-default") 
 @Controller
 public  class FoodMenuAction extends SuperAction {
-	 
-	 @Autowired 
+
+	 @Autowired
 	 private StoreTypeService storeTypeService;
 	 
 	 private PageModel<FoodMenu> page= new PageModel<>();

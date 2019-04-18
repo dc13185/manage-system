@@ -14,7 +14,7 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.stereotype.Controller;
 
-import com.ms.business.Food.entity.FoodMenu;
+import com.ms.business.food.entity.FoodMenu;
 import com.ms.business.wx.order.entity.Comment;
 import com.ms.business.wx.order.entity.Order;
 import com.ms.business.wx.wxUser.entity.User;

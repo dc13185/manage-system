@@ -1,9 +1,11 @@
 package com.ms.business.wx.wxUser.action;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.ms.system.util.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
@@ -22,8 +24,7 @@ import com.ms.business.wx.wxUser.service.WxUserService;
 import com.ms.system.entity.SystemUser;
 import com.ms.system.service.impl.IPService;
 import com.ms.system.superAction.SuperAction;
-import com.ms.system.util.Const;
-import com.ms.system.util.MD5;
+
 
 @Namespace("/userAction")
 @ParentPackage("json-default") 
@@ -98,7 +99,6 @@ public class UserAction extends SuperAction{
 		
 		user.setMoney(user.getMoney()+money*100);
 		systemRepository.update(recharge);
-		//request.setAttribute("user", user);
 		return "all_recharge";
 	}
 	
@@ -113,37 +113,105 @@ public class UserAction extends SuperAction{
 	public String resetPassword(){
 		resultIp();
 		Session session = SecurityUtils.getSubject().getSession(); 
-		//User shrioUser= (User)session.getAttribute(Const.SESSION_USER);
-		
+
 		String tel=request.getParameter("tel");
 		String password=request.getParameter("pwd");
 		String code=request.getParameter("code");
 		
-		//Subject currentUser = SecurityUtils.getSubject(); 
-		String sesson_code = (String) session.getAttribute(Const.SESSION_SECURITY_CODE);
+		String sessonCode = (String) session.getAttribute(Const.SESSION_SECURITY_CODE);
 		session.removeAttribute(Const.SESSION_SECURITY_CODE);
-		if(code.equals(sesson_code)){
+		if(code.equals(sessonCode)){
 			User user =systemRepository.queryUniqueByHql("from User where phone='"+tel+"'");
-			//User user = systemRepository.get(User.class, shrioUser.getUser_id());
 			user.setPassword(MD5.md5(password));
 			systemRepository.update(user);
-			
-			// UsernamePasswordToken token = new UsernamePasswordToken(user.getPhone(), user.getPassword()); 
-			 //登陆
-			 //currentUser.login(token);
-			 
-			 
-		      dataMap.put("status", "success");
+            dataMap.put("status", "success");
 		}else{
-			dataMap.put("status", "codeError"); //验证码错误
+            //验证码错误
+			dataMap.put("status", "codeError");
 		}
 		return "json";
 	}
+
+
+	/**
+	* @Description: 跳转到修改个人信息页面
+	* @Param: []
+	* @return: void
+	* @Author: dong.chao
+	* @Date: 2019/4/5
+	*/
+	@Action(value="toMineEdit",results={@Result(name="mineEdit",location=ROUTE+"business/wx/my/mine_edit.jsp",type="dispatcher")})
+	public String toMineEdit(){
+		resultIp();
+		Session session = SecurityUtils.getSubject().getSession();
+		User shrioUser= (User)session.getAttribute(Const.SESSION_USER);
+		User user=systemRepository.get(User.class, shrioUser.getUser_id());
+		request.setAttribute("user",user);
+		return "mineEdit";
+	}
+
+	
+	/** 
+	* @Description: 修改个人信息
+	* @Param: [] 
+	* @return: java.lang.String 
+	* @Author: dong.chaoeditUserInfo
+	* @Date: 2019/4/5 
+	*/ 
+    @Action(value="editUserInfo",results={@Result(name="json",type="json")})
+    public String editUserInfo(){
+		resultIp();
+
+		Session session = SecurityUtils.getSubject().getSession();
+		User shrioUser= (User)session.getAttribute(Const.SESSION_USER);
+		User user=systemRepository.get(User.class, shrioUser.getUser_id());
+
+		String nickName = request.getParameter("nickName");
+		String sex = request.getParameter("sex");
+		String introduction = request.getParameter("introduction");
+		String department = request.getParameter("department");
+
+		user.setNickName(nickName);
+		user.setSex(sex);
+		user.setIntroduction(introduction);
+		user.setDepartment(department);
+		systemRepository.update(user);
+		dataMap.put("status","success");
+	    return "json";
+    }
+
+	
+    /** 
+    * @Description: 修改头像
+    * @Param: [] 
+    * @return: java.lang.String 
+    * @Author: dong.chao
+    * @Date: 2019/4/5 
+    */ 
+	@Action(value="editPortrait",results={@Result(name="json",type="json")})
+	public String editPortrait() throws IOException {
+		Session session = SecurityUtils.getSubject().getSession();
+		User shrioUser= (User)session.getAttribute(Const.SESSION_USER);
+		User user=systemRepository.get(User.class, shrioUser.getUser_id());
+
+		String portraitImg =request.getParameter("img");
+		//上传图片
+		String uuid = UuidUtil.get32UUID();
+		String nowDay = DateUtil.getDay();
+		String path= Base64Util.generateImage(portraitImg, getUploadImagePath(uuid,nowDay));
+		user.setPortrait(getServerImgPath(uuid, nowDay,path.substring(path.lastIndexOf(".")).toLowerCase()));
+
+		systemRepository.update(user);
+		dataMap.put("portrait",user.getPortrait());
+		return "json";
+	}
+
+
 	
 	
 	
 	
-	/* ---------------------存IP------------------------------*/
+	/** ---------------------存IP------------------------------*/
 	public void resultIp(){
 		request.setAttribute("ip", ipService.getSystemIp());
 	}

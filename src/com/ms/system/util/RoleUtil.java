@@ -17,13 +17,14 @@ public  class RoleUtil {
 		
 		Session session = SecurityUtils.getSubject().getSession();  
 		SystemUser systemUser= (SystemUser) session.getAttribute(Const.SESSION_USER);
-	    
 		List<Menu> menuList = (List<Menu>) session.getAttribute(Const.SESSION_menuList);
-	
 		for (Menu parent_menu : menuList) {
 			for (Menu son_menu : parent_menu.getSonMenu()) {
 				if(son_menu.getMenu_url().equals(menu_url)){
-					return RightsHelper.testRights(systemUser.getRights(), son_menu.getMenu_id());
+					boolean falge = RightsHelper.testRights(systemUser.getRights(), son_menu.getMenu_id());
+					if(falge){
+						return falge;
+					}
 				}
 			}
 		}

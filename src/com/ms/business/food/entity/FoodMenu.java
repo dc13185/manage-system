@@ -1,4 +1,4 @@
-package com.ms.business.Food.entity;
+package com.ms.business.food.entity;
 
 import java.util.Date;
 

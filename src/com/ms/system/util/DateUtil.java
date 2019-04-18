@@ -52,6 +52,17 @@ public class DateUtil {
 	}
 
 	/**
+	 * 获取YYYY-MM-DD HH:mm:ss格式
+	 *
+	 * @return
+	 */
+	public static String getMonth() {
+		SimpleDateFormat sdfTime = new SimpleDateFormat(
+				"yyyy-MM");
+		return sdfTime.format(new Date());
+	}
+
+	/**
 	* @Title: compareDate
 	* @Description: TODO(日期比较，如果s>=e 返回true 否则返回false)
 	* @param s
@@ -74,6 +85,21 @@ public class DateUtil {
 	 */
 	public static Date fomatDate(String date) {
 		DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			return fmt.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * 格式化yyyy-MM日期
+	 *
+	 * @return
+	 */
+	public static Date fomatMonthDate(String date) {
+		DateFormat fmt = new SimpleDateFormat("yyyy-MM");
 		try {
 			return fmt.parse(date);
 		} catch (ParseException e) {
@@ -165,6 +191,20 @@ public class DateUtil {
         String dateStr = sdfd.format(date);
     	return dateStr;
     }
+
+	/**
+	 * 得到n月之后的月份
+	 * @param monthInt
+	 * @return
+	 */
+	public static String getAfterMonthDate(int monthInt){
+		Calendar canlendar = Calendar.getInstance();
+		canlendar.add(Calendar.MONTH, +monthInt);
+		Date date = canlendar.getTime();
+		SimpleDateFormat sdfd = new SimpleDateFormat("yyyy-MM");
+		String dateStr = sdfd.format(date);
+		return dateStr;
+	}
     
     /**
      * 得到n天之后是周几

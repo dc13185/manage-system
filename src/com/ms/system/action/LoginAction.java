@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -20,13 +19,11 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import com.ms.system.entity.Menu;
 import com.ms.system.entity.SystemIp;
 import com.ms.system.entity.SystemUser;
-import com.ms.system.hibernate.base.SystemRepository;
 import com.ms.system.service.MenuService;
 import com.ms.system.service.SystemUserService;
 import com.ms.system.superAction.SuperAction;
@@ -49,8 +46,8 @@ public class LoginAction extends SuperAction {
 	private SystemUserService systemUserService;
 	@Autowired
 	private MenuService menuService;
-	
-	private Map<Object, Object> dataMap = new HashMap<Object, Object>();
+
+	private Map<Object, Object> dataMap =  new HashMap<Object, Object>();
 	
 	private List<Object> dataList = new ArrayList<Object>();
 	
@@ -89,7 +86,7 @@ public class LoginAction extends SuperAction {
 	 @Action(value="login",results={@Result(name="json",type="json"),@Result(name="isAuth",location=ROUTE+"system/welcome.jsp",type="dispatcher")})
 	 public String login(){
 		//shiro管理的session
-		 Subject currentUser = SecurityUtils.getSubject();  
+		 Subject currentUser = SecurityUtils.getSubject();
 		 //没有认证过
 		if(!currentUser.isAuthenticated()){
 			 String username =request.getParameter("username");
